@@ -1,0 +1,13 @@
+.cardGroups {
+  margin: auto;
+  vertical-align: center;
+}
+
+.cardFooter {
+  margin-left: 1rem;
+}
+
+.card {
+  width: 23rem;
+  margin: 2rem;
+}

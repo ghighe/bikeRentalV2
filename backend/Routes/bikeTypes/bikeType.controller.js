@@ -1,0 +1,106 @@
+const { bike_type } = require("../../DB/Models/Bike_type");
+const { attributes } = require("../../config");
+
+const getAllBikesTypes = async (req, res) => {
+  const getAllBikesTypes = await bike_type.findAll({
+    attributes
+  });
+  res.status(200).send(JSON.stringify(getAllBikesTypes));
+};
+
+const getBikeType = async (req, res) => {
+  const bikeTypeId = req.params.id;
+  let getBikeType = null;
+  if (bikeTypeId != null) {
+    getBikeType = await bike_type.findOne({
+      where: { id: bikeTypeId },
+      attributes
+    });
+    res.status(200).send(JSON.stringify(getBikeType));
+  } else {
+    res.status(500).send("BikeType was not found!");
+  }
+};
+
+const addNewBikeType = async (req, res) => {
+  try {
+    const testBikeType = {
+      description: "Street Bike",
+      price_per_minute: 18
+    };
+    const newBikeType = await bike_type.create(testBikeType);
+    res.status(201).json({
+      successMessage: "New bikeType was successfully added to DB!",
+      bikeType: newBikeType
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errorMessage: "Cannot add a bikeType" });
+  }
+};
+
+const updateBikeType = async (req, res) => {
+  let bikeTypeId = null;
+  try {
+    bikeTypeId = req.params.id;
+
+    const existingBikeType = await bike_type.findByPk(bikeTypeId);
+    console.log(existingBikeType);
+    if (!existingBikeType) {
+      return res.status(404).json({ errorMessage: "bikeType was not found!" });
+    }
+
+    const updatedBikeType = {
+      description: "Street Bike",
+      price_per_minute: 10
+    };
+    await bike_type.update(updatedBikeType, { where: { id: bikeTypeId } });
+
+    res.json({
+      updateMessage: "BikeType was successfully updated!",
+      updatedBikeType: updatedBikeType
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ errorMessage: `Cannot update bikeType with id ${bikeTypeId}` });
+  }
+};
+
+const deleteBikeType = async (req, res) => {
+  let deletedBikeTypeId = null;
+
+  try {
+    //extract the id of the bike to be deleted
+    deletedBikeTypeId = req.params.id;
+    //check if bike with the specified id in the url exist and delete it
+    if (deletedBikeTypeId) {
+      await bike_type.destroy({
+        where: {
+          id: deletedBikeTypeId
+        }
+      });
+      res.status(201).json({
+        successMessage: `BikeType with id ${deletedBikeTypeId} was successfully deleted!`
+      });
+    } else {
+      res.status(404).json({
+        errorMessage: `BikeType id was not found!`
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(404)
+      .json({ errorMessage: "BikeType cannot be deleted!" });
+  }
+};
+
+module.exports = {
+  getAllBikesTypes,
+  getBikeType,
+  addNewBikeType,
+  updateBikeType,
+  deleteBikeType
+};
