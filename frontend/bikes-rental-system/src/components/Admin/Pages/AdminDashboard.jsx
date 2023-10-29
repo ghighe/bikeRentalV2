@@ -52,7 +52,7 @@ const AdminDashboard = () => {
             <Card.Body>
               <Card.Title>Fixed Issues</Card.Title>
               <Card.Text style={{ fontWeight: "600", fontSize: "2rem" }}>
-                75
+                72
               </Card.Text>
               <hr></hr>
               <Card.Text className="text-start">
