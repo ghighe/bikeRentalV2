@@ -6,17 +6,22 @@ const getAllCustomers = async (req, res) => {
   const getAllCustomers = await customer.findAll({
     attributes
   });
-
-  res.status(200).send(JSON.stringify(getAllCustomers));
+  res.status(200).json({
+    successMessage: "Fetch of the customers was successfull",
+    getAllCustomers
+  });
 };
 
-const getAllCustomersCountAll = async (req, res) => {
+const countAllCustomers = async (req, res) => {
   const countAllCustomers = await customer.findAll({
     attributes: [[sequelize.fn("COUNT", sequelize.col("id")), "cust_total"]]
   });
   //this will result in an array of objects, we just need to extract the first object at index 0 all the time
-  const formatedResult = countAllCustomers[0];
-  res.status(200).send(formatedResult);
+  const formatedResultCount = countAllCustomers[0];
+  res.status(200).json({
+    successMessage: "Customers count successfully",
+    totalCustomersCount: formatedResultCount
+  });
 };
 
 const getCustomer = async (req, res) => {};
@@ -45,7 +50,7 @@ const deleteCustomer = async (req, res) => {};
 
 module.exports = {
   getAllCustomers,
-  getAllCustomersCountAll,
+  countAllCustomers,
   getCustomer,
   addNewCustomer,
   updateCustomer,

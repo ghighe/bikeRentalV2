@@ -3,6 +3,8 @@ const cors = require("cors");
 const bikeRouter = require("./Routes/bikes/bikes.router");
 const bikeTypeRouter = require("./Routes/bikeTypes/bikeType.router");
 const customersRouter = require("./Routes/customers/customers.router");
+const rentalRouter = require("./Routes/rent/rent.router");
+const invoicesRouter = require("./Routes/Invoices/invoices.router");
 const { connectToDatabase } = require("./DB/connection");
 const { syncTables } = require("./DB/syncTables");
 
@@ -22,7 +24,13 @@ app.get("/", (req, res) => {
     );
 });
 
-const appRoutes = [bikeRouter, bikeTypeRouter, customersRouter];
+const appRoutes = [
+  bikeRouter,
+  bikeTypeRouter,
+  customersRouter,
+  rentalRouter,
+  invoicesRouter
+];
 app.use(express.json());
 app.use(appRoutes);
 

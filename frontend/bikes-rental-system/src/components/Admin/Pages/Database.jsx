@@ -1,5 +1,7 @@
+import HeaderBar from "../../HeaderBar";
+
 const Database = () => {
-  return <h1>This is database component!</h1>;
+  return <HeaderBar headTitle={"Database"} />;
 };
 
 export default Database;

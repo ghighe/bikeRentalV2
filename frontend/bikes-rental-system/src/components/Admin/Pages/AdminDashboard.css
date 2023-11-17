@@ -1,8 +1,3 @@
-.cardGroups {
-  margin: auto;
-  vertical-align: center;
-}
-
 .cardFooter {
   margin-left: 1rem;
 }
@@ -10,4 +5,19 @@
 .card {
   width: 23rem;
   margin: 2rem;
+  cursor: pointer;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+.icons {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+}
+
+.userIcon {
+  margin-left: 1rem;
 }

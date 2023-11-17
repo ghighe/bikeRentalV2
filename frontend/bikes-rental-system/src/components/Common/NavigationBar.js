@@ -1,5 +1,4 @@
-import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
 
 export default function NavigationBar({ userType }) {
   const menuData = [
@@ -45,7 +44,7 @@ export default function NavigationBar({ userType }) {
             ))}
           </Nav>
           <Nav className="ms-auto">
-            <button className="btn btn-success">Sign Up</button>
+            <Button variant="primary">Sign Up</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

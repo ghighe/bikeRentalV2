@@ -4,7 +4,8 @@ const {
   getBikeType,
   addNewBikeType,
   updateBikeType,
-  deleteBikeType
+  deleteBikeType,
+  countAllBikeTypes
 } = require("../bikeTypes/bikeType.controller");
 
 const bikeTypeRouter = express.Router();
@@ -12,6 +13,7 @@ const bikeTypeRouter = express.Router();
 //here we will defined all our routes to bikesType
 
 bikeTypeRouter.get("/api/v1/allBikeTypes", getAllBikesTypes);
+bikeTypeRouter.get("/api/v1/countBikeTypes", countAllBikeTypes);
 bikeTypeRouter.get("/api/v1/bikeType/:id", getBikeType);
 bikeTypeRouter.post("/api/v1/bikeType", addNewBikeType);
 bikeTypeRouter.put("/api/v1/bikeType/:id", updateBikeType);

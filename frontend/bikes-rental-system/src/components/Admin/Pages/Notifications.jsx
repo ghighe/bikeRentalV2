@@ -1,5 +1,7 @@
+import HeaderBar from "../../HeaderBar";
+
 const Notifications = () => {
-  return <h1>This is notifications component!</h1>;
+  return <HeaderBar headTitle={"Notifications"} />;
 };
 
 export default Notifications;

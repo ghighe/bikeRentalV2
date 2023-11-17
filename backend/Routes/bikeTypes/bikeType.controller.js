@@ -22,11 +22,33 @@ const getBikeType = async (req, res) => {
   }
 };
 
+const countAllBikeTypes = async (req, res) => {
+  try {
+    if (!bike_type) {
+      return new Error("Model bikeType doesn't exist! ");
+    }
+    const bikeTypeCount = await bike_type.count();
+
+    if (isNaN(bikeTypeCount)) {
+      return new Error("Count should be a number");
+    }
+    res.status(200).json({
+      successMessage: "Count bikeTypes successfully",
+      bikeTypeCount
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      errorMessage: "Cannot count all bike types"
+    });
+  }
+};
+
 const addNewBikeType = async (req, res) => {
   try {
     const testBikeType = {
-      description: "Street Bike",
-      price_per_minute: 18
+      description: "Road Bike",
+      price_per_minute: 22
     };
     const newBikeType = await bike_type.create(testBikeType);
     res.status(201).json({
@@ -102,5 +124,6 @@ module.exports = {
   getBikeType,
   addNewBikeType,
   updateBikeType,
-  deleteBikeType
+  deleteBikeType,
+  countAllBikeTypes
 };

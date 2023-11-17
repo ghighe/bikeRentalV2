@@ -27,12 +27,16 @@ invoice.hasOne(rental, {
 });
 
 async function syncTables() {
-  await bike.sync();
-  await bike_type.sync();
-  await customer.sync();
-  await invoice.sync();
-  await rental.sync();
-  console.log(`All required DB_Tables were (re)created`);
+  try {
+    await bike_type.sync();
+    await bike.sync();
+    await customer.sync();
+    await invoice.sync();
+    await rental.sync();
+    console.log(`All required DB_Tables were (re)created`);
+  } catch (error) {
+    console.error(`Error syncing the tables ${error}`);
+  }
 }
 
 module.exports = { syncTables };

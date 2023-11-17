@@ -1,4 +1,5 @@
 const { bike } = require("../../DB/Models/Bike");
+const { rental } = require("../../DB/Models/Rental");
 const { attributes } = require("../../config");
 
 //here we will have all the logic for bikes
@@ -24,12 +25,42 @@ const getBike = async (req, res) => {
   }
 };
 
+const getAvailableBikes = async (req, res) => {
+  try {
+    if (!bike || !rental) {
+      return new Error("Model bike or rental doesn't exist! ");
+    }
+    //count the total bikes
+    const totalBikes = await bike.count();
+    //count the rental bikes
+    const rentalBikes = await rental.count();
+
+    //check if totalBikes and rentalBikes are numbers. If are not numbers return error
+    if (isNaN(totalBikes) || isNaN(rentalBikes)) {
+      return new Error("Count should be a number");
+    }
+
+    const availableBikes = totalBikes - rentalBikes;
+
+    res.status(200).json({
+      successMessage: "Bike count was possbile",
+      totalBikes,
+      rentalBikes,
+      availableBikes
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: `Error getting the available bikes ${error}`
+    });
+  }
+};
+
 const addNewBike = async (req, res) => {
   try {
+    //this will come from the frontend
     const testBike = {
-      type: 14,
-      register_date: "2023-10-03",
-      attributes
+      type: 16,
+      register_date: "2023-11-21"
     };
     const newBike = await bike.create(testBike);
     res.status(201).json({
@@ -102,6 +133,7 @@ const deleteBike = async (req, res) => {
 module.exports = {
   getAllBikes,
   getBike,
+  getAvailableBikes,
   addNewBike,
   updateBike,
   deleteBike

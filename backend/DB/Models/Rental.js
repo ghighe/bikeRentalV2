@@ -13,16 +13,19 @@ const rental = sequelize.define("rentals", {
     allowNull: false
   },
 
+  bike_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+
   start_date_time: {
     type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.fn("NOW")
+    allowNull: false
   },
 
   end_date_time: {
     type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.fn("NOW")
+    allowNull: false
   },
 
   invoice_id: {
