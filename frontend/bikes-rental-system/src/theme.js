@@ -9,8 +9,13 @@ export const theme = createTheme({
     secondary: {
       main: purple[700]
     },
-    otherColor: {
-      main: "#999"
+    buttonRed: {
+      main: "#e8403d",
+      contrastText: "#FFF"
+    },
+    " &:hover": {
+      contrastText: "#e8403d",
+      main: "#FFF"
     }
   }
 });

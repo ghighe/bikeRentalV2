@@ -7,6 +7,10 @@
   font-family: "Roboto", sans-serif;
 }
 
+.css-1ghiiio-MuiButtonBase-root-MuiButton-root:hover {
+  color: white;
+}
+
 .navbar {
   background: #282a36;
 }
