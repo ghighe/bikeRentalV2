@@ -10,7 +10,11 @@ const { syncTables, syncOneTable } = require("./DB/syncTables");
 
 const app = express();
 //middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000"
+  })
+);
 app.use(express.json());
 //this will be called when we access localhost on port 5000 default root "/"
 app.get("/", (req, res) => {
