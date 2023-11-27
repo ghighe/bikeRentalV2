@@ -13,6 +13,11 @@ const bike_type = sequelize.define("bike_types", {
     allowNull: false
   },
 
+  info: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+
   price_per_minute: {
     type: DataTypes.INTEGER,
     allowNull: false

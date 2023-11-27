@@ -43,7 +43,7 @@ const ModifyBikesCard = () => {
 
   const handleDeleteBikeType = (id) => {
     const filteredBikeTypeData = filterBikeData.filter(
-      (bikeType) => bikeType.bikeTypeId !== id
+      bikeType => bikeType.bikeTypeId !== id
     );
     setFilterBikeData(filteredBikeTypeData);
   };

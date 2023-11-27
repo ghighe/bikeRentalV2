@@ -9,33 +9,58 @@ import {
   Typography,
   Box
 } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAlert } from "../Hooks/useAlert";
+import axios from "axios";
+import { useState } from "react";
 
 const AddBikeForm = () => {
   let isFormSubmited = false;
   const { showAlert } = useAlert();
+  const [bikeTypeData, setBikeTypeData] = useState(null);
+
+  const getBikeTypeData = async (bikeType) => {
+    try {
+      const response = await axios.post("/api/v1/bikeType", bikeType);
+      if (response) {
+        setBikeTypeData(response.data);
+      }
+    } catch (error) {
+      console.error(`Bike Type cannot be fetched from database ${error}`);
+    }
+  };
+
+  //check when the data object has been filled, intially it's an empty object
 
   const formik = useFormik({
     initialValues: {
       bikeType: "",
-      aditionalInfo: ""
+      info: "",
+      price: 0
     },
     validationSchema: Yup.object({
       bikeType: Yup.string()
         .max(10, "Must be 10 characters or less!")
-        .required("Field required"),
-      aditionalInfo: Yup.string()
+        .required("BikeType is required"),
+      info: Yup.string()
         .max(50, "Must be 50 characters or less!")
-        .required("Field required")
+        .required("Info is required"),
+      price: Yup.number()
+        .required("Price is required")
+        .max(10, "Maximum amount is 10$")
     }),
-    onSubmit: (addBikeType, { resetForm }) => {
+    onSubmit: async (bikeData, { resetForm }) => {
       isFormSubmited = true;
       if (isFormSubmited) {
-        showAlert("BikeType added successfully!", "success");
-        //console.log(addBikeType);
+        await getBikeTypeData(bikeData);
+        //console.log("bikeTypeData from submit", bikeTypeData);
         resetForm();
+        showAlert(`${bikeTypeData?.successMessage}`, "success");
+      } else {
+        //error
+        showAlert(`${bikeTypeData?.errorMessage}`, "error");
       }
     }
   });
@@ -87,21 +112,49 @@ const AddBikeForm = () => {
               <Grid item>
                 <TextField
                   color={
-                    formik.touched.aditionalInfo && formik.errors.aditionalInfo
+                    formik.touched.info && formik.errors.info
                       ? "error"
                       : "secondary"
                   }
                   fullWidth
-                  name="aditionalInfo"
-                  id="aditionalInfo"
+                  name="info"
+                  id="info"
                   label="Information about new bikeType"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.aditionalInfo}
-                  {...formik.getFieldProps("aditionalInfo")}
+                  value={formik.values.info}
+                  {...formik.getFieldProps("info")}
                 />
-                {formik.touched.aditionalInfo && formik.errors.aditionalInfo ? (
-                  <Box sx={{ color: "red" }}>{formik.errors.aditionalInfo}</Box>
+                {formik.touched.info && formik.errors.info ? (
+                  <Box sx={{ color: "red" }}>{formik.errors.info}</Box>
+                ) : null}
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  color={
+                    formik.touched.info && formik.errors.info
+                      ? "error"
+                      : "secondary"
+                  }
+                  sx={{ width: "10rem" }}
+                  type="number"
+                  InputProps={{
+                    inputProps: { min: 0, max: 10 },
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    )
+                  }}
+                  name="price"
+                  id="price"
+                  label="price_per_minute"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.price}
+                  {...formik.getFieldProps("price")}
+                />
+                {formik.touched.price && formik.errors.price ? (
+                  <Box sx={{ color: "red" }}>{formik.errors.price}</Box>
                 ) : null}
               </Grid>
             </Grid>

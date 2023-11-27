@@ -2,10 +2,11 @@ import HeaderBar from "../../HeaderBar";
 import { Grid } from "@mui/material";
 import AddBikeForm from "../../AddBikeForm";
 import ModifyBikesCard from "../../ModifyBikesCard";
+import { AlertProvider } from "../../../providers/AlertProvider";
 
 const AddBike = () => {
   return (
-    <>
+    <AlertProvider>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
           <HeaderBar headTitle={"AddBike"} />
@@ -17,7 +18,7 @@ const AddBike = () => {
           <ModifyBikesCard />
         </Grid>
       </Grid>
-    </>
+    </AlertProvider>
   );
 };
 

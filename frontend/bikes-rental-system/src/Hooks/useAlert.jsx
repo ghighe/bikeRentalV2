@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { AlertContext } from "../providers/AlertProvider";
 
 export const useAlert = () => {
-  const context = useContext(AlertContext);
+  const alertContext = useContext(AlertContext);
 
-  if (!context) {
+  if (!alertContext) {
     throw new Error("useAlert should be used within an AlertProvider");
   }
 
   //console.log(context);
 
-  return context;
+  return alertContext;
 };

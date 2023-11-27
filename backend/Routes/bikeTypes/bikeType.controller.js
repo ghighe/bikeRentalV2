@@ -45,19 +45,25 @@ const countAllBikeTypes = async (req, res) => {
 };
 
 const addNewBikeType = async (req, res) => {
+  const { bikeType, info, price } = req.body;
+
+  // console.log("newBikeType", newBikeType);
   try {
-    const testBikeType = {
-      description: "Road Bike",
-      price_per_minute: 22
+    const addNewBikeType = {
+      description: bikeType,
+      info: info,
+      price_per_minute: price
     };
-    const newBikeType = await bike_type.create(testBikeType);
+    const newBikeType = await bike_type.create(addNewBikeType);
     res.status(201).json({
       successMessage: "New bikeType was successfully added to DB!",
       bikeType: newBikeType
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ errorMessage: "Cannot add a bikeType" });
+    res
+      .status(500)
+      .json({ errorMessage: `New BikeType cannot be create ${error}` });
   }
 };
 

@@ -7,17 +7,14 @@ export const AlertContext = createContext();
 
 export const AlertProvider = ({ children }) => {
   const [alertObj, setAlertObj] = useState(null);
-  const [open, setOpen] = useState(false);
 
   //here we defined 2 functions showAlert and closeAlert
   const showAlert = (message, severity) => {
-    setAlertObj({ message, severity });
-    setOpen(true); //?? creaza obiect aici
+    setAlertObj({ message, severity }); // shorthand pentru creare obiect cu 2 proprietati message is severity
   };
 
   const closeAlert = () => {
     setAlertObj(null);
-    setOpen(false);
   };
 
   return (
@@ -25,7 +22,7 @@ export const AlertProvider = ({ children }) => {
       {children}
       {alertObj && (
         <Snackbar
-          open={open}
+          open={Boolean(alertObj)}
           autoHideDuration={4000}
           onClose={closeAlert}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}

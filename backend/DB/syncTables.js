@@ -39,4 +39,16 @@ async function syncTables() {
   }
 }
 
-module.exports = { syncTables };
+async function syncOneTable() {
+  try {
+    // await bike_type.sync({ alter: true }); -> in test mode it's safe to be used but it's a destructive way use migration instead
+    console.log("model was synchronized successfully.");
+  } catch (error) {
+    console.error("Error, table was not sync ${error}");
+  }
+}
+
+module.exports = {
+  syncTables,
+  syncOneTable
+};
