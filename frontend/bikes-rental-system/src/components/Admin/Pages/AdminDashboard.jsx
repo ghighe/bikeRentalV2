@@ -79,7 +79,7 @@ const AdminDashboard = () => {
     {
       color: "#fc9006",
       icon: copyIcon,
-      mainText: "Available Bikes",
+      mainText: "Available Bikes / Total Bikes",
       mainNumber: `${bikesAvailability?.availableBikes}/${bikesAvailability?.totalBikes}`,
       footerText: `${bikesAvailability?.rentalBikes} ${
         bikesAvailability?.rentalBikes <= 1

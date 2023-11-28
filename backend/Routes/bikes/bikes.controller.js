@@ -34,13 +34,15 @@ const getAvailableBikes = async (req, res) => {
     const totalBikes = await bike.count();
     //count the rental bikes
     const rentalBikes = await rental.count();
-
+    let availableBikes = 0;
     //check if totalBikes and rentalBikes are numbers. If are not numbers return error
     if (isNaN(totalBikes) || isNaN(rentalBikes)) {
       return new Error("Count should be a number");
     }
 
-    const availableBikes = totalBikes - rentalBikes;
+    if (totalBikes > 0) {
+      availableBikes = totalBikes - rentalBikes;
+    }
 
     res.status(200).json({
       successMessage: "Bike count was possbile",

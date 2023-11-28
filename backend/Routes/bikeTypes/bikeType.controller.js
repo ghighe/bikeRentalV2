@@ -54,13 +54,23 @@ const addNewBikeType = async (req, res) => {
       info: info,
       price_per_minute: price
     };
+    const existBikeType = await bike_type.findOne({
+      where: { description: addNewBikeType.description }
+    });
+    // console.log("existBikeType ", existBikeType);
+    if (existBikeType) {
+      //if the inserted bike exist return status 409
+      return res.status(409).json({
+        errorMessage: `${addNewBikeType.description} bike type already exist!`
+      });
+    }
     const newBikeType = await bike_type.create(addNewBikeType);
     res.status(201).json({
       successMessage: "New bikeType was successfully added to DB!",
       bikeType: newBikeType
     });
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
     res
       .status(500)
       .json({ errorMessage: `New BikeType cannot be create ${error}` });

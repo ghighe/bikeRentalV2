@@ -14,20 +14,20 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAlert } from "../Hooks/useAlert";
 import axios from "axios";
-import { useState } from "react";
 
 const AddBikeForm = () => {
-  let isFormSubmited = false;
   const { showAlert } = useAlert();
-  const [bikeTypeData, setBikeTypeData] = useState(null);
 
   const getBikeTypeData = async (bikeType) => {
     try {
       const response = await axios.post("/api/v1/bikeType", bikeType);
-      if (response) {
-        setBikeTypeData(response.data);
-      }
+      return response.data;
     } catch (error) {
+      if (error.response.status === 409) {
+        //here the bikeType exist already and we throw an error back to the user
+        showAlert(`${error.response.data.errorMessage}`, "error");
+        return;
+      }
       console.error(`Bike Type cannot be fetched from database ${error}`);
     }
   };
@@ -38,11 +38,11 @@ const AddBikeForm = () => {
     initialValues: {
       bikeType: "",
       info: "",
-      price: 0
+      price: ""
     },
     validationSchema: Yup.object({
       bikeType: Yup.string()
-        .max(10, "Must be 10 characters or less!")
+        .max(20, "Must be 20 characters or less!")
         .required("BikeType is required"),
       info: Yup.string()
         .max(50, "Must be 50 characters or less!")
@@ -52,15 +52,13 @@ const AddBikeForm = () => {
         .max(10, "Maximum amount is 10$")
     }),
     onSubmit: async (bikeData, { resetForm }) => {
-      isFormSubmited = true;
-      if (isFormSubmited) {
-        await getBikeTypeData(bikeData);
-        //console.log("bikeTypeData from submit", bikeTypeData);
+      let responseData;
+
+      responseData = await getBikeTypeData(bikeData);
+      if (responseData) {
+        console.log("bikeTypeData from submit", responseData);
         resetForm();
-        showAlert(`${bikeTypeData?.successMessage}`, "success");
-      } else {
-        //error
-        showAlert(`${bikeTypeData?.errorMessage}`, "error");
+        showAlert(`${responseData?.successMessage}`, "success");
       }
     }
   });
@@ -91,6 +89,7 @@ const AddBikeForm = () => {
           <CardContent>
             <Grid container spacing={2} direction="column">
               <Grid item xs={12} sm={8}>
+                {/* bike type text input */}
                 <TextField
                   color={
                     formik.touched.bikeType && formik.errors.bikeType
@@ -110,6 +109,7 @@ const AddBikeForm = () => {
                 ) : null}
               </Grid>
               <Grid item>
+                {/* information text input */}
                 <TextField
                   color={
                     formik.touched.info && formik.errors.info
@@ -131,6 +131,7 @@ const AddBikeForm = () => {
               </Grid>
 
               <Grid item>
+                {/* price number input type */}
                 <TextField
                   color={
                     formik.touched.info && formik.errors.info
