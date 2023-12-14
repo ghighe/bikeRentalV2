@@ -10,52 +10,43 @@ import {
   Button,
   Stack
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 import Pagination from "@mui/material/Pagination";
+import axios from "axios";
 
-const bikeTypeData = [
-  { bikeTypeId: 1, bikeType: "Classic" },
-  { bikeTypeId: 2, bikeType: "Electric" },
-  { bikeTypeId: 3, bikeType: "Scooter" },
-  { bikeTypeId: 4, bikeType: "N/A" }
-];
+import Loading from "./Loading";
 
-const ModifyBikesCard = () => {
+const ModifyBikesCard = ({ bikeTypeData, loading, errors }) => {
   const [edited, isEdited] = useState(false);
-  const [filterBikeData, setFilterBikeData] = useState(bikeTypeData);
+  const [bikeId, setBikeId] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   const handleEditBikeType = (bikeTypeId) => {
-    console.log(`handleBikeTypeFunction ${bikeTypeId}`);
+    setBikeId(bikeTypeId);
     isEdited(true);
   };
 
   const handleChangeBikeType = (e, index) => {
-    const updatedBikeTypeData = bikeTypeData.map((type, i) => {
-      if (i === index) {
-        return { ...type, bikeType: e.target.value };
-      }
-      return type;
-    });
+    console.log(index);
+    console.log(e.target.value);
   };
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
-  const handleDeleteBikeType = (id) => {
-    const filteredBikeTypeData = filterBikeData.filter(
-      (bikeType) => bikeType.bikeTypeId !== id
-    );
-    setFilterBikeData(filteredBikeTypeData);
-  };
+  const handleDeleteBikeType = (id) => {};
 
-  const onSaveChanges = () => {
+  const onSaveChanges = async () => {
     isEdited(false);
   };
 
@@ -64,8 +55,8 @@ const ModifyBikesCard = () => {
     cursor: "pointer"
   };
 
-  const filteredBikes = filterBikeData.map((bike, index) => (
-    <Box key={bike.bikeTypeId}>
+  let renderBikes = bikeTypeData?.map((bike, index) => (
+    <Box key={bike.id}>
       <Box
         style={{
           display: "flex",
@@ -78,7 +69,7 @@ const ModifyBikesCard = () => {
           id="standard-basic"
           variant="standard"
           disabled={!edited}
-          defaultValue={`${bike.bikeType}`}
+          defaultValue={`${bike.description}`}
           onChange={(e) => handleChangeBikeType(e, index)}
           required
         />
@@ -86,7 +77,7 @@ const ModifyBikesCard = () => {
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => handleEditBikeType(bike.bikeTypeId)}
+            onClick={() => handleEditBikeType(bike.id)}
           >
             <EditIcon />
           </IconButton>
@@ -94,7 +85,7 @@ const ModifyBikesCard = () => {
         <IconButton
           aria-label="delete"
           color="error"
-          onClick={() => handleDeleteBikeType(bike.bikeTypeId)}
+          onClick={() => handleDeleteBikeType(bike.id)}
         >
           <DeleteIcon />
         </IconButton>
@@ -131,7 +122,7 @@ const ModifyBikesCard = () => {
           color: "white"
         }}
       ></CardHeader>
-      <CardContent>{filteredBikes}</CardContent>
+      <CardContent>{renderBikes}</CardContent>
       {edited && (
         <CardActions
           sx={{

@@ -12,10 +12,10 @@ import {
 import InputAdornment from "@mui/material/InputAdornment";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAlert } from "../Hooks/useAlert";
+import { useAlert } from "../../../Hooks/useAlert";
 import axios from "axios";
 
-const AddBikeForm = () => {
+const AddBikeForm = ({ checkBikeAdded }) => {
   const { showAlert } = useAlert();
 
   const getBikeTypeData = async (bikeType) => {
@@ -53,12 +53,11 @@ const AddBikeForm = () => {
     }),
     onSubmit: async (bikeData, { resetForm }) => {
       let responseData;
-
       responseData = await getBikeTypeData(bikeData);
       if (responseData) {
-        console.log("bikeTypeData from submit", responseData);
         resetForm();
         showAlert(`${responseData?.successMessage}`, "success");
+        checkBikeAdded();
       }
     }
   });
@@ -71,7 +70,7 @@ const AddBikeForm = () => {
           width: 800,
           height: "auto",
           margin: "auto",
-          marginTop: "2rem"
+          marginTop: "0.5rem"
         }}
       >
         <CardHeader

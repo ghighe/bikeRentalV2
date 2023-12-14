@@ -1,4 +1,4 @@
-import HeaderBar from "../../HeaderBar";
+import HeaderBar from "../adminComponents/HeaderBar";
 
 const Notifications = () => {
   return <HeaderBar headTitle={"Notifications"} badgeContent={10} />;

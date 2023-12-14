@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import "../SideNavigationBar.css";
-import { styled, useTheme } from "@mui/material/styles";
+import "./SideNavigationBar.css";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";

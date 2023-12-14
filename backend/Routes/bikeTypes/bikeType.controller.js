@@ -88,15 +88,18 @@ const updateBikeType = async (req, res) => {
       return res.status(404).json({ errorMessage: "bikeType was not found!" });
     }
 
+    const { description, info, price_per_minute } = req.body;
+
     const updatedBikeType = {
-      description: "Street Bike",
-      price_per_minute: 10
+      description,
+      info,
+      price_per_minute
     };
+
     await bike_type.update(updatedBikeType, { where: { id: bikeTypeId } });
 
-    res.json({
-      updateMessage: "BikeType was successfully updated!",
-      updatedBikeType: updatedBikeType
+    res.status(200).json({
+      updateMessage: `BikeType with id ${bikeTypeId} was successfully updated!`
     });
   } catch (error) {
     console.log(error);

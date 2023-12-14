@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import Cards from "../../Cards";
-import ChartCard from "../../ChartCard";
+import Cards from "../adminComponents/Cards";
+import ChartCard from "../adminComponents/ChartCard";
 import useFetch from "../../../Hooks/useFetch";
 import {
   AppBar,
@@ -11,8 +11,8 @@ import {
   Badge,
   Grid
 } from "@mui/material";
+import Loading from "../adminComponents/Loading";
 import SearchIcon from "@mui/icons-material/Search";
-import CircularProgress from "@mui/material/CircularProgress";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -27,7 +27,7 @@ import {
   SearchInput,
   SearchIconWrapper,
   StyledInputBase
-} from "../../../dashboardTheme";
+} from "../../Admin/adminThemes/dashboardTheme";
 
 const AdminDashboard = () => {
   const {
@@ -138,20 +138,8 @@ const AdminDashboard = () => {
     }
   ];
 
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
+  if (loading || bikeTypeLoading || customersLoading || invoiceLoading) {
+    return <Loading />;
   }
 
   return (

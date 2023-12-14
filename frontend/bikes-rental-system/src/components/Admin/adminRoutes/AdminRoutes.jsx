@@ -1,11 +1,10 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
-import AdminDashboard from "../Pages/AdminDashboard";
-import AddBike from "../Pages/AddBike";
-import Database from "../Pages/Database";
-import Maps from "../Pages/Maps";
-import Notifications from "../Pages/Notifications";
-import NoPage from "../Pages/NoPage";
+import AdminDashboard from "../adminPages/AdminDashboard";
+import AddBike from "../adminPages/AddBike";
+import Database from "../adminPages/Database";
+import Maps from "../adminPages/Maps";
+import Notifications from "../adminPages/Notifications";
+import NoPage from "../adminPages/NoPage";
 
 const AdminRoutes = () => {
   return (

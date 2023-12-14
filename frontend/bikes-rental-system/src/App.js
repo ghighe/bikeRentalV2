@@ -2,9 +2,9 @@
 import "./App.css";
 import "./components/Common/NavigationBar";
 import "./index.css";
-import SideNavigationBar from "./components/SideNavigationBar";
+import SideNavigationBar from "./components/Admin/adminComponents/SideNavigationBar";
 import { BrowserRouter as Router } from "react-router-dom";
-import AdminRoutes from "./components/Admin/Routes/AdminRoutes";
+import AdminRoutes from "./components/Admin/adminRoutes/AdminRoutes";
 import { Box } from "@mui/material";
 
 function App() {

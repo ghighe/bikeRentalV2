@@ -1,4 +1,4 @@
-import HeaderBar from "../../HeaderBar";
+import HeaderBar from "../adminComponents/HeaderBar";
 
 const Maps = () => {
   return <HeaderBar headTitle={"Maps"} badgeContent={10} />;
