@@ -2,6 +2,13 @@ const { attributes } = require("../../config");
 const { sequelize } = require("../../DB/connection");
 const { invoice } = require("../../DB/Models/Invoice");
 
+const getAllInvoices = async (req, res) => {
+  const getAllInvoices = await invoice.findAll({
+    attributes
+  });
+  res.status(200).send(JSON.stringify(getAllInvoices));
+};
+
 const getCountAndInvoicesSum = async (req, res) => {
   try {
     const countInvoices = await invoice.count();
@@ -28,5 +35,6 @@ const getCountAndInvoicesSum = async (req, res) => {
 };
 
 module.exports = {
-  getCountAndInvoicesSum
+  getCountAndInvoicesSum,
+  getAllInvoices
 };

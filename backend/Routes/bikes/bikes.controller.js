@@ -1,4 +1,6 @@
+const { Model } = require("sequelize");
 const { bike } = require("../../DB/Models/Bike");
+const { bike_type } = require("../../DB/Models/Bike_type");
 const { rental } = require("../../DB/Models/Rental");
 const { attributes } = require("../../config");
 
@@ -6,7 +8,13 @@ const { attributes } = require("../../config");
 
 const getAllBikes = async (req, res) => {
   const getAllBikes = await bike.findAll({
-    attributes
+    attributes,
+    include: [
+      {
+        model: bike_type,
+        attributes: ["description"]
+      }
+    ]
   });
   res.status(200).send(JSON.stringify(getAllBikes));
 };

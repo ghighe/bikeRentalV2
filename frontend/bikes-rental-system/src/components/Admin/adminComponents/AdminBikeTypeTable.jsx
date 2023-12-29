@@ -34,7 +34,7 @@ function EditToolbar() {
   );
 }
 
-function AdminBikeTable({ bikeTypeData }) {
+function AdminBikeTypeTable({ bikeTypeData }) {
   const [rows, setRows] = useState(bikeTypeData);
   const [rowModesModel, setRowModesModel] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -254,4 +254,4 @@ function AdminBikeTable({ bikeTypeData }) {
   );
 }
 
-export default AdminBikeTable;
+export default AdminBikeTypeTable;

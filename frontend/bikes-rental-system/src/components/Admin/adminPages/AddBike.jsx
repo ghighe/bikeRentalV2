@@ -4,8 +4,7 @@ import HeaderBar from "../adminComponents/HeaderBar";
 import { Grid } from "@mui/material";
 import AddBikeForm from "../adminComponents/AddBikeForm";
 import { AlertProvider } from "../../../providers/AlertProvider";
-import useFetch from "../../../Hooks/useFetch";
-import AdminBikeTable from "../adminComponents/AdminBikeTable";
+import AdminBikeTypeTable from "../adminComponents/AdminBikeTypeTable";
 import Loading from "../adminComponents/Loading";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../../utils/fetchEndPoints";
@@ -62,7 +61,7 @@ const AddBike = () => {
         </Grid>
         {bikeTypeData.length > 0 && (
           <Grid item>
-            <AdminBikeTable bikeTypeData={bikeTypeData} />
+            <AdminBikeTypeTable bikeTypeData={bikeTypeData} />
           </Grid>
         )}
       </Grid>

@@ -10,11 +10,17 @@ bike_type.hasOne(bike, {
   onUpdate: "CASCADE",
   onDelete: "CASCADE"
 });
-bike.hasMany(rental, {
-  foreignKey: "bike_id",
+bike.belongsTo(bike_type, {
+  foreignKey: "type",
+  targetKey: "id",
   onUpdate: "CASCADE",
   onDelete: "CASCADE"
-});
+}),
+  bike.hasMany(rental, {
+    foreignKey: "bike_id",
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE"
+  });
 customer.hasMany(rental, {
   foreignKey: "customer_id",
   onUpdate: "CASCADE",
