@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Cards from "../adminComponents/Cards";
 import ChartCard from "../adminComponents/ChartCard";
-import useFetch from "../../../Hooks/useFetch";
+import useFetch from "../../../Context/useFetch";
+import { useBadge } from "../../../Context/useBadge";
 import {
   AppBar,
   Box,
@@ -74,6 +75,8 @@ const AdminDashboard = () => {
   const dateRangeIcon = <DateRangeIcon />;
   const bikeScooterIcon = <BikeScooterIcon />;
   const updateIcon = <UpdateIcon />;
+
+  const { badgeCount, incrementBadgeCount, resetBadgeCount } = useBadge();
 
   const cardData = [
     {
@@ -171,7 +174,7 @@ const AdminDashboard = () => {
             aria-label="show 17 new notifications"
             color="inherit"
           >
-            <Badge badgeContent={10} color="error">
+            <Badge badgeContent={badgeCount} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>

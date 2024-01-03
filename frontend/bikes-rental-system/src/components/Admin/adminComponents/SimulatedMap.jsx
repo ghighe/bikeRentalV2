@@ -45,10 +45,6 @@ const SimulatedMap = () => {
   // eslint-disable-next-line no-unused-vars
   const [map, setMap] = useState(null);
 
-  if (paths) {
-    console.log(paths);
-  }
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
@@ -110,7 +106,7 @@ const SimulatedMap = () => {
         }}
       >
         <Typography variant="h6" component="h6" mt={4}>
-          Select the id of the desired ride to view it on the map
+          Select the route to view it on the map
         </Typography>
 
         <FormControl fullWidth>

@@ -6,7 +6,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { fetchData } from "../../../utils/fetchEndPoints";
-import { useAlert } from "../../../Hooks/useAlert";
+import { useAlert } from "../../../Context/useAlert";
 import Modal from "./AdminModal";
 import Box from "@mui/material/Box";
 import {
@@ -16,6 +16,7 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons
 } from "@mui/x-data-grid";
+import { clearNotifications } from "../../../utils/NotificationsUtils";
 
 function EditToolbar() {
   return (
@@ -60,6 +61,7 @@ function AdminBikeTypeTable({ bikeTypeData }) {
       }
       setBikeToDelete({});
       setIsModalOpen(false);
+      clearNotifications();
     }
   };
 
@@ -119,6 +121,7 @@ function AdminBikeTypeTable({ bikeTypeData }) {
       "PUT",
       transformedBikeType
     );
+    //here we need to call again addNotification
     if (responseBikeType.updateMessage !== undefined) {
       showAlert(`${responseBikeType?.updateMessage}`, "success");
     } else {

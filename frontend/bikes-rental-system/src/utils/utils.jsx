@@ -8,6 +8,16 @@ export const formatDate = (date) => {
   return month < 10 ? `${day}.0${month}.${year}` : newDate;
 };
 
+export const formatTime = (date) => {
+  const formatTime = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+  return formatTime;
+};
+
 export const transformBikes = (bikes) => {
   const newBike = bikes.map((bike) => {
     return {

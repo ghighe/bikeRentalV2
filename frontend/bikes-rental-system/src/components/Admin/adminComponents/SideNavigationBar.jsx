@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SideNavigationBar.css";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -20,6 +20,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import PlaceIcon from "@mui/icons-material/Place";
 import StorageIcon from "@mui/icons-material/Storage";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@mui/material";
+import { useBadge } from "../../../Context/useBadge";
 
 const drawerWidth = 240;
 
@@ -74,8 +76,15 @@ const SideNavigationBar = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
+  const { badgeCount, resetBadgeCount } = useBadge();
+
   const toggleCloseOpen = () => {
     setOpen((open) => !open);
+  };
+
+  const handleNavigation = () => {
+    navigate("/admin/notifications");
+    resetBadgeCount();
   };
 
   return (
@@ -190,7 +199,7 @@ const SideNavigationBar = () => {
                 justifyContent: open ? "initial" : "center",
                 px: 2.5
               }}
-              onClick={() => navigate("/admin/notifications")}
+              onClick={handleNavigation}
             >
               <ListItemIcon
                 sx={{
@@ -200,6 +209,7 @@ const SideNavigationBar = () => {
                 }}
               >
                 <NotificationsIcon className="icon" />
+                <Badge badgeContent={badgeCount} color="error" />
               </ListItemIcon>
               <ListItemText
                 primary="Notifications"

@@ -68,3 +68,34 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+// const newBikeTypeNotification = [
+//   {
+//     title: "NewBikeType",
+//     type: "Classic Bike",
+//     info: "new bike info",
+//     price: "2",
+//     addedTime: ` ${formatDate(new Date())} - ${formatTime(new Date())}`
+//   },
+//   {
+//     title: "NewBikeType",
+//     type: "Mountain Bike",
+//     info: "new bike info",
+//     price: "2",
+//     addedTime: ` ${formatDate(new Date())} - ${formatTime(new Date())}`
+//   },
+//   {
+//     title: "NewBikeType",
+//     type: "Road Bike",
+//     info: "new bike info",
+//     price: "2",
+//     addedTime: ` ${formatDate(new Date())} - ${formatTime(new Date())}`
+//   },
+//   {
+//     title: "NewBikeType",
+//     type: "Hibrid Bike",
+//     info: "new bike info",
+//     price: "2",
+//     addedTime: ` ${formatDate(new Date())} - ${formatTime(new Date())}`
+//   }
+// ];

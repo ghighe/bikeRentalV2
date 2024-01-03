@@ -12,8 +12,9 @@ import {
 import InputAdornment from "@mui/material/InputAdornment";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAlert } from "../../../Hooks/useAlert";
+import { useAlert } from "../../../Context/useAlert";
 import axios from "axios";
+import { addNotification } from "../../../utils/NotificationsUtils";
 
 const AddBikeForm = ({ checkBikeAdded }) => {
   const { showAlert } = useAlert();
@@ -56,8 +57,9 @@ const AddBikeForm = ({ checkBikeAdded }) => {
       responseData = await getBikeTypeData(bikeData);
       if (responseData) {
         resetForm();
+        addNotification("New BikeType", bikeData);
         showAlert(`${responseData?.successMessage}`, "success");
-        checkBikeAdded();
+        checkBikeAdded(bikeData);
       }
     }
   });

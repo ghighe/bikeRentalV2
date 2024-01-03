@@ -8,6 +8,7 @@ import AdminBikeTypeTable from "../adminComponents/AdminBikeTypeTable";
 import Loading from "../adminComponents/Loading";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../../utils/fetchEndPoints";
+import { useBadge } from "../../../Context/useBadge";
 
 const transformBikeType = (bike) =>
   bike.map((bikeType) => {
@@ -21,10 +22,8 @@ const AddBike = () => {
   const [bikeTypeData, setBikeTypeData] = useState([]);
   const [isnewBikeAdded, setIsNewBikeAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [badgeCount, setBadgeCount] = useState(() => {
-    const badges = JSON.parse(localStorage.getItem("badgeCount"));
-    return badges;
-  });
+
+  const { badgeCount, incrementBadgeCount, resetBadgeCount } = useBadge();
 
   useEffect(() => {
     const getAllBikeTypes = async () => {
@@ -37,13 +36,9 @@ const AddBike = () => {
     getAllBikeTypes();
   }, [isnewBikeAdded]);
 
-  useEffect(() => {
-    localStorage.setItem("badgeCount", JSON.stringify(badgeCount));
-  }, [badgeCount]);
-
   function checkBikeAdded() {
     setIsNewBikeAdded((isAdded) => !isAdded);
-    setBadgeCount((currBadge) => currBadge + 1);
+    incrementBadgeCount();
   }
 
   if (isLoading) {

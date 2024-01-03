@@ -10,12 +10,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./components/Admin/adminThemes/theme";
+import { BadgeProvider } from "./providers/BadgeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <BadgeProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BadgeProvider>
   </React.StrictMode>
 );
