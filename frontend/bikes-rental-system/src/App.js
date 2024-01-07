@@ -8,10 +8,12 @@ import AdminRoutes from "./components/Admin/adminRoutes/AdminRoutes";
 import { Box } from "@mui/material";
 
 function App() {
+  const isSignIn = false;
+
   return (
     <Box sx={{ display: "flex" }}>
       <Router>
-        <SideNavigationBar />
+        {isSignIn && <SideNavigationBar />}
         <AdminRoutes />
       </Router>
     </Box>

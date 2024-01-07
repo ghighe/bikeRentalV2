@@ -7,6 +7,7 @@ const rentalRouter = require("./Routes/rent/rent.router");
 const invoicesRouter = require("./Routes/Invoices/invoices.router");
 const { connectToDatabase } = require("./DB/connection");
 const { syncTables, syncOneTable } = require("./DB/syncTables");
+const path = require("path");
 
 const app = express();
 //middlewares

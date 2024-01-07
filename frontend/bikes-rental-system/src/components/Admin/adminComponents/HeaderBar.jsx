@@ -8,8 +8,20 @@ import {
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { useState } from "react";
+import BadgeList from "../../Common/BadgeList";
+import { useBadge } from "../../../Context/useBadge";
 
 const HeaderBar = ({ headTitle, paragraph, badgeContent }) => {
+  const [showBadgeList, setShowBadgeList] = useState(false);
+
+  const { resetBadgeCount } = useBadge();
+
+  const handleBadgeList = () => {
+    setShowBadgeList((currentVal) => !currentVal);
+    resetBadgeCount();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -39,10 +51,12 @@ const HeaderBar = ({ headTitle, paragraph, badgeContent }) => {
             size="large"
             aria-label="show 17 new notifications"
             color="inherit"
+            onClick={handleBadgeList}
           >
             <Badge badgeContent={badgeContent} color="error">
               <NotificationsIcon />
             </Badge>
+            {showBadgeList && <BadgeList showBadgeList={showBadgeList} />}
           </IconButton>
           <IconButton
             size="large"
